@@ -32,6 +32,9 @@ collections:
   authors:
     output: true
     permalink: /:name
+  demos:
+    output: true
+    permalink: '/demos'
 
 # Pages Path
 defaults:
@@ -54,6 +57,12 @@ defaults:
       type: "authors"
     values:
       layout: "author"
+  - scope:
+      path: ""
+      type: "demos"
+    values:
+      layout: "page"
+  
 
 sass:
   sass_dir: _sass

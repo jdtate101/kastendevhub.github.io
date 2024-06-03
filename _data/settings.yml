@@ -22,7 +22,7 @@ menu__settings:
     - title: 'About'
       url: '/about/'
     - title: 'Demos'
-      url: '/tags/?tag=demo'      
+      url: '/demos/'      
     - title: 'Authors'
       url: '/authors/'
     - title: '90DaysOfDevOps'

@@ -1,6 +1,5 @@
 ---
-author:
-  - matt.slotten
+author: mattslotten
 date: 2024-02-02 10:36:24 -0500
 description: "Protecting OpenShift Virtualizaton VMs with Veeam Kasten"
 featured: false

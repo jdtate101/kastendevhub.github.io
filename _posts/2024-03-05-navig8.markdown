@@ -1,0 +1,60 @@
+---
+layout: post
+title: 'Navig8: A Data Management Solution for Kubernetes Helm Charts'
+description: Simplify and gain greater control over your helm deployments with Navig8.
+date: 2024-03-05 09:46:35 +0300
+author: mlavi
+image: '/images/posts/2024-03-05-navig8/navig8_header.webp'
+image_caption: 'Navig8: A Data Management Solution for Kubernetes Helm Charts'
+tags: [helm, opensource]
+featured:
+---
+Managing Kubernetes can be challenging, especially when deploying and managing stateful applications that require persistent storage. Enter [Helm](https://helm.sh/), a powerful open-source tool that simplifies package management and application deployment for Kubernetes applications. 
+
+What is Helm?
+=================
+
+Helm became a CNCF graduated project in 2020. It helps bring together various Kubernetes yaml files for configuring networking, storage, and other application components from different files across different teams into a solid directory structure, or Helm chart. It provides a consistent way to deploy an application and has been adopted by about [70% of Kubernetes users](https://helm.sh/blog/celebrating-helms-cncf-graduation/).
+
+As a package manager designed specifically for Kubernetes, Helm: 
+
+Provides an easy way to find, share, and use software built for Kubernetes. 
+Makes it easy to define, install, and upgrade applications across different environments.
+Enables users to easily share and reuse configurations, reducing the time required to deploy applications.
+
+With Helm, pre-built application templates can be customized to meet specific requirements and include all the necessary resources, making it possible to deploy complex applications with just a few simple commands. Helm provides Kubernetes manifests, config maps, and an easy-to-use UI that allow users to manage their Helm releases and monitor their applications.
+
+The Helm Journey
+=================
+
+In 2015 a startup project called Deis developed Helm as a declarative manner to deploy their applications, and at that time, it was considered a competitor to Kubernetes. But in 2016, it was clear to the startup that they should combine their efforts with Google. As part of the collaboration, Google contributed its GCS Deployment Manager, and Helm became a Kubernetes sub-project.
+
+In 2019, Helm, version 3, simplified the Helm experience by removing the Tiller server component and improving the Chart format and capabilities. Charts can leverage various libraries for reuse and templating and more importantly, you can serve, publish, and distribute a Helm chart through any web server. Overall, Helm 3 represented a significant step forward toward simplified Helm adoption.
+
+![Helm History](/images/posts/2024-03-05-navig8/helm_timeline.webp)
+
+
+The Challenges of Using Helm
+=============================
+
+Like anything in our realm, there are challenges to using Helm. 
+
+1. **Time consuming to learn Helm because a Chart may have many YAML files**
+Helm is often the first step toward application automation for both operators and developers. Bringing all of the different concerns across different teams at an organization – for example security credentials – across storage, networking, and application files into different parts of a Helm chart makes managing them easier, but the Chart can become cumbersome and difficult to navigate. 
+2. **Each configuration property, in each file, may represent a separate domain concern**
+All of the different concerns for configuration and operations across different departments and teams must be added to the Helm chart and translated into YAML. As the configuration scope moves from uncoordinated single use values by each team to variables reused across the entire Chart, using Helm well can be a steep learning curve. This software development method is new for those accustomed to managing and administering variables and operations manually through a graphical user interface (GUI).
+3. **As Charts mature, customization requires the population of values to explode**
+As Helm Charts mature, more customization is needed to appropriately deploy to multiple environments such as small, medium, and large data clusters. Production sequences can differ from sequences in development, leading to an explosion of values and management requirements. 
+4. **Documentation may be lacking**
+Documentation is often lacking for mature and exhaustive charts, increasing the risk of misconfigurations – and deployments often fail because of just one misconfigured variable. This has become a widespread challenge for users adopting Helm for the first time.
+
+How Does Navig8 Help?
+=====================
+
+![Navig8 Project](/images/posts/2024-03-05-navig8/navig8.png)
+
+Kasten by Veeam created [Navig8](https://github.com/navig8s/navig8) to help new Kubernetes adopters deploy any application with a Helm Chart and a values.schema.json resource. Navig8 is an open-source project that simplifies the configuration and deployment of any application. Navig8 has an easy-to-use web based user interface which guides the user to create validated settings and consolidates any reference documentation. By increasing Helm chart configuration success, Navig8 reduces the time required to deploy Kubernetes applications.
+
+Navig8 is easy to build, deploy, and host as a Docker container and it is a secure, front-end solution that doesn’t transmit any confidential settings, allowing anyone to use it safely and incorporate into a web site.
+
+To learn more about Navig8, please visit [navig8.dev](https://Navig8.dev) and star, adopt, and contribute to the open source project. You can see Navi8 in action with a Kasten K10 Helm Chart at [install.kasten.io](https://install.kasten.io).

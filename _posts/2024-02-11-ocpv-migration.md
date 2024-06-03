@@ -11,13 +11,13 @@ featured: false
 ---
 
 ## Overview
-With the ongoing controversy around Broadcom's acquisition of VMWare and subsequent changes to pricing and partner eco-systems, many customer are looking at their options around their virtualisation provider. Most solid alternatives consist of the same type 2 hypervisor technology, products such as Nutanix, Hyper-V and Proxmox.
+With the ongoing controversy around Broadcom's acquisition of VMware and subsequent changes to pricing and partner eco-systems, many customer are looking at their options around their virtualisation provider. Most solid alternatives consist of the same type 2 hypervisor technology, products such as Nutanix, Hyper-V and Proxmox.
 
 However there is an alternative that many cloud native enterprises are now looking towards...KubeVirt.
 
 Kubevirt is a native Kubernetes environment addon that allows virtual machines to run inside containers. It consists of translating the vmdk into a pvc and the running state into a pod. It all runs inside a namespace on Kubernetes and thus can be addressed via the API. This means that Kasten can backup those VM's in the exact same fashion as native containerised workloads.
 
-As of the date of publishing this article, Kasten only officially supports KubeVirt on RedHat OpenShift (called Openshift Virtualisation, or OCP-V), which is a sensible approach as KubeVirt is a downstream open-source project authored by RedHat based upon OCP-V.
+As of the date of publishing this article, Kasten only officially supports KubeVirt on Red Hat OpenShift (called Openshift Virtualisation, or OCP-V), which is a sensible approach as KubeVirt is a downstream open-source project authored by Red Hat based upon OCP-V.
 
 The question then becomes, how do I migrate to OCP-V and just what is involved. Thankfully it's actually quite easy and can be done in both an offline and online fashion. In this post I will detail the steps involved in migrating a test Ubuntu 22.04 LTS Server with a basic nginx installation to OCP-V and detailing the steps to expose the services.
 
@@ -26,8 +26,8 @@ The test migration setup I am using is as follows:
  - VMware ESXi 7.0u2 with vCentre 7
  - OpenShift 4.13.13 with rook-ceph CSI storage
  - Ubuntu 22.04 LTS test VM (with 20GB vmdk)
- - [RedHat Virtualisation Operator](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.13/html/virtualization/installing#virt-installing-virt-operator_installing-virt-web)
- - [RedHat Migration Toolkit for Virtualisation (MTV) Operator](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/installing-the-operator)
+ - [Red Hat Virtualisation Operator](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.13/html/virtualization/installing#virt-installing-virt-operator_installing-virt-web)
+ - [Red Hat Migration Toolkit for Virtualisation (MTV) Operator](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/installing-the-operator)
  - [Kasten K10 Operator](https://docs.kasten.io/latest/install/openshift/openshift.html)
 
 ![Installed OpenShift Operators](/images/posts/2024-02-11-ocpv-migration/2.png)
@@ -44,7 +44,7 @@ Once you have both Red Hat operators installed from the operator hub, you will n
 We will start with the Migration (we will use the Virtualisation later on).
 Once we open up the side panel, you will see 4 new items... Providers, Plans, NetworkMaps and StorageMaps. All these must be configured to process a successful migration.
 
- 1. Providers - These detail the platform integrations. You can migrate from VMware, RedHat RHV, RedHat OpenStack and other Openshift platforms (Version 4.x only).
+ 1. Providers - These detail the platform integrations. You can migrate from VMware, Red Hat RHV, Red Hat OpenStack and other Openshift platforms (Version 4.x only).
  2. Plans - This is the migration plan to detail source and destination platforms and options.
  3. NetworkMaps - Here we detail how we are going to address the networking translation, eg VM Network to Openshift network layers
  4. StorageMap - Lastly we detail how we map the individual ESXi data stores to the cluster CSI storage classes.
@@ -220,7 +220,7 @@ Most linux distributions ship with the open-vmware agent, the open source altern
 
 ### Block Mode Exports For Kasten
 
-Kasten has the ability to export data from snapshots in BLOCK mode, which basically means it can recognise and take advantage of change block tracking. This is vewry advantagous on large PVC's (like virtual disks of VMs) as it can significantly speed up the export process by only copying the changes data since the last export. The initial export will always be a full copy. In order for Kasten to recognise and use this ability, we  have to do two things:
+Kasten has the ability to export data from snapshots in BLOCK mode, which basically means it can recognise and take advantage of change block tracking. This is advantagous on large PVC's (like virtual disks of VMs) as it can significantly speed up the export process by only copying the changes data since the last export. The initial export will always be a full copy. In order for Kasten to recognise and use this ability, we  have to do two things:
 
 - Firstly we need to add an annotation to the storage class: kubectl annotate storageclass ${STORAGE_CLASS_NAME} k10.kasten.io/sc-supports-block-mode-exports=true
 - Secondly on the Kasten policy for the backup there is an option to use block export that needs to be enabled.
@@ -231,7 +231,7 @@ More information about this feature can be found on our docs website [here](http
 
 # Conclusion
 
-Not only it it easy to migrate from VMware to OCP-V using MTV, but it's entirely supported by RedHat and can be used for both online & offline migrations. If you specifically create and map an external network on the Openshift cluster with the same CIDR range you don't even have to change any networking. It's a great tool to power any move away from VMware and onto a unified platform for both VM's and containers. Better yet, those newly migrated VM's can be protected by Kasten K10, allowing full backup/restore, DR and application mobility capabilities.
+Not only it it easy to migrate from VMware to OCP-V using MTV, but it's entirely supported by Red Hat and can be used for both online & offline migrations. If you specifically create and map an external network on the Openshift cluster with the same CIDR range you don't even have to change any networking. It's a great tool to power any move away from VMware and onto a unified platform for both VM's and containers. Better yet, those newly migrated VM's can be protected by Kasten K10, allowing full backup/restore, DR and application mobility capabilities.
 
 In fact there is already a demo of this process on one of our other [blog posts](https://veeamkasten.dev/ocpv-kasten-demo)
 

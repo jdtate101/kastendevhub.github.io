@@ -3,7 +3,7 @@ layout: post
 title: Kasten on Red Hat Openshift Interactive Demo
 description: In this interactive demo, see how quick and easy it is to deploy Kasten by Veeam via the Red Hat OpenShift Operator.
 date: 2023-12-02 09:46:35 +0300
-author: admin
+author: mattslotten
 image: '/images/posts/2023-10-02-demo-ocp/openshift_operator.png'
 image_caption: 'Protect Cloud Native workloads on Red Hat OpenShift with Kasten by Veeam'
 tags: [demo, redhat, openshift, multicloud]
